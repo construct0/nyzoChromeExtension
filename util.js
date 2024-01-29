@@ -53,6 +53,15 @@ function senderDataAsUint8Array(senderData) {
                 }
             }
 
+            if (allAreCorrect) {
+                let amtUnderScores = senderData.split("").filter(x => x === '_').length;
+            
+                // The amount of characters on the left and right side (data and underscores) should be divisible by 2, the presence of 0 underscores indicates that the entire 64 character span has been utilized by hexadecimal characters
+                if(amtUnderScores > 0 && (amtUnderScores % 2) != 0) {
+                    allAreCorrect = false;
+                }
+            }
+
             // If all characters are correct, decode the data. Otherwise, leave the result null to indicate that the
             // input is not a valid sender-data string.
             if (allAreCorrect) {
